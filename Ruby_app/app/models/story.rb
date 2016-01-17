@@ -6,4 +6,7 @@ class Story < ActiveRecord::Base
   
   validates :title,
             :presence => {:message => "Du måste ange en titel"}
+            
+  validates :description,
+            :presence => {:message => "Du måste ange description"}
 end

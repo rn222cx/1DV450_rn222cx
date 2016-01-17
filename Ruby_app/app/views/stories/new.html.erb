@@ -1,5 +1,17 @@
 <h1>create new story</h1>
 
+<% if @story.errors.any? %>
+  <div id="error_messages">
+    <h2><%= pluralize(@story.errors.count, "erros") %> in the form</h2>
+    
+    <ul>
+      <% @story.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @story do |f| %>
   <div class="text_field">
     <%= f.label :title %>
