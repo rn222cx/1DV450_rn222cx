@@ -8,7 +8,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user1 = User.create(:username => "roy", :email => "test@gmail.com", :password_digest => "pass", :api_key => "543" ) 
+user1 = User.create(:username => "roy", :email => "test@gmail.com", :password => "pass", :api_key => "543" ) 
+user2 = User.create(:username => "JohnDoe", :email => "johndoe@example.com", :password => "password", :api_key => "3d21e" ) 
 
 story1 = Story.create(:title => "Min historia", :description => "föddes i växjö", :longitude => 27.73, :latitude => 14.65)
 story2 = Story.create(:title => "Historian om växjö", :description => "Där vägarna möts", :longitude => 23.43, :latitude => 54.45)
