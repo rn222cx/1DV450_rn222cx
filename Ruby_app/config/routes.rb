@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   resources :stories
   resources :users
   
+  # resources :users do
+  #   resources :stories
+  # end
+  
   # You can have the root of your site routed with "root"
   root 'stories#index'
   ## match ':controller(/:action(/:id))', :via => :get

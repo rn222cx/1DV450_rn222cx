@@ -9,3 +9,13 @@
     </section>
   </aside>
 </div>
+<#%= @stories.title %>
+
+<% @stories.each do |story| %>
+  <h2><%= link_to story.title, story %></h2>
+  <p><%= link_to "Edit", edit_story_path(story) %> |
+     <%= link_to "Delete", story, :data => {:confirm => "Are you sure?"}, :method => :delete %>
+  </p>
+<% end %>
+
+<%= link_to "create new story", new_story_path %>

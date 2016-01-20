@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113181618) do
+ActiveRecord::Schema.define(version: 20160120181556) do
 
   create_table "stories", force: :cascade do |t|
     t.integer  "user_id"
@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20160113181618) do
     t.string   "email",           limit: 50
     t.string   "password_digest"
     t.string   "api_key"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.boolean  "admin",                      default: false
   end
 
 end
