@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+    before_action :logged_in_user, only: [:edit, :update, :create, :destroy]
+    
     def index
       @stories = Story.all
     end
@@ -12,7 +14,8 @@ class StoriesController < ApplicationController
     end
     
     def create
-       @story = Story.new(story_params)
+      # @story = Story.new(story_params)
+      @story = current_user.stories.build(story_params)
       
       if @story.save
         flash[:success] = "Stories successfully created"

@@ -1,16 +1,8 @@
 class User < ActiveRecord::Base
-  has_many :stories
+  has_many :stories, dependent: :destroy # remove users stories when delete, same as cascade
   
   has_secure_password
   validates :password_digest, length: { minimum: 3 }
-  
-  
-#  validates :email,
-#            :presence => {:message => "You have to enter a email"},
-#            uniqueness: true
-            
-#  validates_format_of :email, :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i,
-#                      :presence => {:message => "Wrong format on email"}
                
   before_save { self.email = email.downcase }       
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

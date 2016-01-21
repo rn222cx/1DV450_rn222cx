@@ -7,15 +7,20 @@
         <%= @user.username %>
       </h1>
     </section>
+    <%= link_to "create new story", new_story_path %>
   </aside>
+
+    <div class="col-md-12">
+      <%= will_paginate @stories %>
+      <% if @user.stories.any? %>
+        <h3>Stories (<%= @user.stories.count %>)</h3>
+        <ol class="stories">
+          <%= render @stories %>
+        </ol>
+
+      <% end %>
+  </div>
+  
 </div>
-<#%= @stories.title %>
 
-<% @stories.each do |story| %>
-  <h2><%= link_to story.title, story %></h2>
-  <p><%= link_to "Edit", edit_story_path(story) %> |
-     <%= link_to "Delete", story, :data => {:confirm => "Are you sure?"}, :method => :delete %>
-  </p>
-<% end %>
-
-<%= link_to "create new story", new_story_path %>
+<%= will_paginate @stories  %>

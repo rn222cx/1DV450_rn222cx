@@ -8,8 +8,11 @@ class SessionsController < ApplicationController
       # Log the user in and redirect to the user's show page.
       log_in user
       redirect_to user
+    elsif user.nil?
+       flash.now[:danger] = "Email doesn't exist"
+       return render 'new'
     else
-      flash[:danger] = "Invalid email/password combination" # Not quite right!
+      flash.now[:danger] = "Invalid email/password combination"
       render 'new'
     end
   end

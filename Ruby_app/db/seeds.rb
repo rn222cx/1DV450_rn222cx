@@ -9,7 +9,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 user1 = User.create(:username => "roy", :email => "test@gmail.com", :password => "pass", :api_key => "543", admin: true ) 
-user2 = User.create(:username => "JohnDoe", :email => "johndoe@example.com", :password => "password", :api_key => "3d21e" ) 
+user2 = User.create(:username => "JohnDoe", :email => "johndoe@hotmail.com", :password => "password", :api_key => "3d21e" ) 
 
 story1 = Story.create(:title => "Min historia", :description => "föddes i växjö", :longitude => 27.73, :latitude => 14.65)
 story2 = Story.create(:title => "Historian om växjö", :description => "Där vägarna möts", :longitude => 23.43, :latitude => 54.45)
@@ -25,3 +25,22 @@ user1.stories << story2
 
 story1.tags << tags1
 tag1.tags << tags1
+
+# create some fake users
+99.times do |n|
+  username  = Faker::Name.name
+  email = "example-#{n+1}@rails.org"
+  password = "password"
+  User.create!(username: username,
+               email: email,
+               password:              password,
+               password_confirmation: password)
+end
+
+# create some fake stories
+# users = User.order(:created_at).take(6)
+# 50.times do
+#   content = Faker::Lorem.sentence(5)
+#   title  = Faker::Name.name
+#   users.each { |user| user.stories.create!(title: title, description: content) }
+# end
