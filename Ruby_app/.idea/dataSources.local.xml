@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal">
-    <data-source name="Rails backend_api: development" uuid="0ea732e3-1660-4175-9a05-cc22ef43c8ac">
-      <auth-required>false</auth-required>
-    </data-source>
-  </component>
-</project>
