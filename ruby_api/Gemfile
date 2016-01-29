@@ -36,6 +36,7 @@ gem 'faker',  '1.4.2'
 # responder for api
 gem "responders"
 
+gem 'active_hash_relation'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

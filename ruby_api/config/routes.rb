@@ -1,3 +1,5 @@
+require 'api_constraints'
+
 Rails.application.routes.draw do
   
   get    'signup'  => 'users#new'
@@ -6,11 +8,23 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  namespace :api, defaults: {format: 'json'} do
-    namespace :v1 do
+
+  # namespace :api, defaults: {format: 'json'} do
+  #  namespace :v1 do
+  #    resources :users
+  #  end
+  # end
+
+
+
+  namespace :api, defaults: {format: :json},
+            constraints: { subdomain: 'api' }, path: '/'  do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :users
+      resources :stories
     end
   end
+
   
   resources :stories
   resources :users
