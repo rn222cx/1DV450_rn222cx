@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  #get 'sessions/new'
   
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
@@ -7,6 +6,12 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :users
+    end
+  end
+  
   resources :stories
   resources :users
   
