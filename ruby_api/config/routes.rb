@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   
   resources :stories
   resources :users
+  resources :domains
   
   # resources :users do
   #   resources :stories
