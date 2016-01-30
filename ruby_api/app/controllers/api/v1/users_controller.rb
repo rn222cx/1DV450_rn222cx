@@ -1,7 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
      # before_filter :restrict_access
-     # respond_to :json
-      include ActiveHashRelation
+      before_filter :authenticate_user! #, only: [:show, :update, :destroy]
 
       def index
         users = User.all

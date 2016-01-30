@@ -83,7 +83,10 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (1.6.4)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -164,6 +167,8 @@ DEPENDENCIES
   faker (= 1.4.2)
   jbuilder (~> 2.0)
   jquery-rails
+  pundit
+  rack-cors
   rails (= 4.2.5)
   responders
   sass-rails (~> 5.0)

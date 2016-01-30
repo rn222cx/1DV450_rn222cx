@@ -4,8 +4,9 @@ class Domain < ActiveRecord::Base
   def generate_authentication_token
     loop do
       self.authentication_token = SecureRandom.base64(64)
-      break unless User.find_by(authentication_token: authentication_token)
+      break unless Domain.find_by(authentication_token: authentication_token)
     end
   end
 
 end
+
