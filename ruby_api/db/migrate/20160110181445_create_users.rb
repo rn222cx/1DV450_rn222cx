@@ -5,7 +5,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string "username", :limit => 20
       t.string "email", :limit => 50
       t.string "password_digest"
-      t.string "api_key"
       
       t.timestamps null: false
     end

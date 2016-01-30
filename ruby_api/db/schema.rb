@@ -11,12 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129182937) do
+ActiveRecord::Schema.define(version: 20160130100946) do
 
   create_table "api_keys", force: :cascade do |t|
     t.string   "access_token"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "domain_name",          limit: 50
+    t.string   "description",          limit: 50
+    t.string   "authentication_token"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "stories", force: :cascade do |t|
