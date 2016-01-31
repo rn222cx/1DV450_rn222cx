@@ -1,9 +1,8 @@
 class CreateTags < ActiveRecord::Migration
   def change
     create_table :tags do |t|
-      t.references :tag_type
-      t.references :story
 
+      t.string :name, index: true
       t.timestamps null: false
     end
   end

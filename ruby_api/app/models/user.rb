@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :stories, dependent: :destroy # remove users stories when delete, same as cascade
-  has_many :domains
+  has_many :domains, dependent: :destroy
   
   has_secure_password
   validates :password_digest, length: { minimum: 3 }

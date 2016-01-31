@@ -21,6 +21,9 @@
     <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
+  <div class="tag_field">
+    <%= f.text_field :all_tags, placeholder: "Tags separated with comma" %>
+  </div>
 
   <div class="submit">
     <%= f.submit "submit" %>

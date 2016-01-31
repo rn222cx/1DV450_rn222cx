@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130100946) do
-
-  create_table "api_keys", force: :cascade do |t|
-    t.string   "access_token"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
+ActiveRecord::Schema.define(version: 20160131230057) do
 
   create_table "domains", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,25 +32,34 @@ ActiveRecord::Schema.define(version: 20160130100946) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "stories", ["user_id", "created_at"], name: "index_stories_on_user_id_and_created_at"
   add_index "stories", ["user_id"], name: "index_stories_on_user_id"
 
   create_table "tag_types", force: :cascade do |t|
     t.string "era"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.integer  "tag_type_id"
+  create_table "taggings", force: :cascade do |t|
     t.integer  "story_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "taggings", ["story_id"], name: "index_taggings_on_story_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name"
 
   create_table "users", force: :cascade do |t|
     t.string   "username",        limit: 20
     t.string   "email",           limit: 50
     t.string   "password_digest"
-    t.string   "api_key"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.boolean  "admin",                      default: false

@@ -1,4 +1,4 @@
 class Tag < ActiveRecord::Base
-  belongs_to :tag_type
-  belongs_to :story
+  has_many :taggings
+  has_many :stories, through: :taggings
 end
