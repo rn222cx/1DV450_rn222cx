@@ -13,6 +13,7 @@
 
     <% @domains.each do |d| %>
       <%= d.domain_name %><br>
+        <%= d.description %><br>
         <%= d.authentication_token %><br>
         <p>
           <%= link_to "Delete", d, :data => {:confirm => "Are you sure?"}, :method => :delete %>

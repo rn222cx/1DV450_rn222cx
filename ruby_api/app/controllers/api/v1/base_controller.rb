@@ -1,6 +1,6 @@
 class Api::V1::BaseController < ApplicationController
-  include Pundit
-  include ActiveHashRelation
+  include Pundit # For authorization
+  include ActiveHashRelation # Dont use yet
 
   protect_from_forgery with: :null_session
 
@@ -18,10 +18,13 @@ class Api::V1::BaseController < ApplicationController
   def authenticate_user!
     token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
 
+    # Check if email is the same in users table
     user_email = options.blank?? nil : options[:email]
     user = user_email && User.find_by(email: user_email)
+    # Get key from users domain table
+    domain_key = user.domains.where(authentication_token: token).first.authentication_token
 
-    if user && ActiveSupport::SecurityUtils.secure_compare(user.domains.first.authentication_token, token)
+    if user && ActiveSupport::SecurityUtils.secure_compare(domain_key, token)
       @current_user = user
     else
       unauthenticated!
