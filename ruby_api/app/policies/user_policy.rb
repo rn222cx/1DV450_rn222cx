@@ -1,20 +1,22 @@
 class UserPolicy < ApplicationPolicy
   def show?
-    return true
+    return true if user.admin?
+    true if record.id == user.id
   end
 
   def create?
-    return true
+    true if user.admin?
+    true if record.id == user.id
   end
 
   def update?
-    return true if user.admin?
-    return true if record.id == user.id
+    true if user.admin?
+    true if record.id == user.id
   end
 
   def destroy?
-    return true if user.admin?
-    return true if record.id == user.id
+    true if user.admin?
+    true if record.id == user.id
   end
 
   class Scope < ApplicationPolicy::Scope

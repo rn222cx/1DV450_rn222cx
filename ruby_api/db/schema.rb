@@ -34,10 +34,6 @@ ActiveRecord::Schema.define(version: 20160131230057) do
 
   add_index "stories", ["user_id"], name: "index_stories_on_user_id"
 
-  create_table "tag_types", force: :cascade do |t|
-    t.string "era"
-  end
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "story_id"
     t.integer  "tag_id"

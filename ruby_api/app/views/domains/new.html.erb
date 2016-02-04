@@ -4,12 +4,14 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@domain) do |f| %>
-        <%#= render 'shared/error_messages' %>
+
+        <% @user = @domain %> <!-- Lazy hack to use users error template -->
+        <%= render 'shared/error_messages' %>
 
         <%= f.label :domain_name %>
         <%= f.text_field :domain_name, class: 'form-control' %>
 
-        <%= f.label :description %>
+        <%= f.label :description %> (not required)
         <%= f.text_field :description, class: 'form-control' %>
 
         <%= f.submit "Add domain", class: "btn btn-primary" %>

@@ -7,21 +7,6 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-
-  # namespace :api, defaults: {format: 'json'} do
-  #  namespace :v1 do
-  #    resources :users
-  #  end
-  # end
-
-  # namespace :api do
-  #   namespace :v1 do
-  #     resources :users, only: [:index, :create, :show, :update, :destroy]
-  #     resources :stories, only: [:index, :create, :show, :update, :destroy]
-  #   end
-  # end
-
   namespace :api, defaults: {format: :json},
             constraints: { subdomain: 'api' }, path: '/'  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
@@ -33,14 +18,14 @@ Rails.application.routes.draw do
   
   resources :stories
   resources :users
-  resources :domains
+  resources :domains, except: :edit
   
   # resources :users do
   #   resources :stories
   # end
   
   # You can have the root of your site routed with "root"
-  root 'stories#index'
+  root 'sessions#new'
   ## match ':controller(/:action(/:id))', :via => :get
   
   # The priority is based upon order of creation: first created -> highest priority.

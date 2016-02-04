@@ -8,18 +8,24 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user1 = User.create(:username => "roy", :email => "test@gmail.com", :password => "pass", admin: true )
+user1 = User.create(:username => "Admin", :email => "admin@admin.com", :password => "1234", admin: true )
 user2 = User.create(:username => "JohnDoe", :email => "johndoe@hotmail.com", :password => "password" )
 
-story1 = Story.create(:title => "Min historia", :description => "föddes i växjö", :longitude => 27.73, :latitude => 14.65)
-story2 = Story.create(:title => "Historian om växjö", :description => "Där vägarna möts", :longitude => 23.43, :latitude => 54.45)
+story1 = Story.create(:title => "Mordet på Palme", :description => "Skjuten i Stockholm, mördare okänd", :longitude => 27.73, :latitude => 14.65)
+story2 = Story.create(:title => "Historian om växjö", :description => "Sloganen där vägarna möts har bytts ut mot europas grönaste stad", :longitude => 23.43, :latitude => 54.45)
 
-# tag1 = TagType.create(:era => "Viking Age")
-# tag2 = TagType.create(:era => "Bronze Age")
-# tag3 = TagType.create(:era => "Iron Age")
+domain1 = Domain.create(:domain_name => "smp.se", :description => "My news site", :authentication_token => "QHaND7lr36M/lM/kaIpghaZO0PkFwla+NU37oB4DMg0Ph7qvtjmA0xGZ+jAM4ENSXC1A/1iQMqs4Z8DTcc9Kbw==")
+
+user1.domains << domain1
 
 user1.stories << story1
 user1.stories << story2
+
+# create and add a tag
+tag1 = Tag.create(:name => "roligt")
+tagging1 = Tagging.create
+story1.taggings << tagging1
+tag1.taggings << tagging1
 
 
 # create some fake users

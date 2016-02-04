@@ -1,5 +1,11 @@
 class Domain < ActiveRecord::Base
+  belongs_to :user
+
   before_create :generate_authentication_token
+
+  validates :domain_name,
+            presence: true,
+            length: { maximum: 50 }
 
   def generate_authentication_token
     loop do
