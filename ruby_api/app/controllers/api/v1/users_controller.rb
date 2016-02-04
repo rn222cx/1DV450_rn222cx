@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     users = User.all
-    respond_with users.order(:created_at => :desc)
+    respond_with users.order(:created_at => :desc), :except => :password_digest
   end
 
 
