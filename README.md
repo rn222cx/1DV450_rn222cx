@@ -14,7 +14,10 @@ password: 1234
 ### Api
 
 To fetch all users navigate to api.DOMAINNAME/users in url.  
-As you can se i have placed the api string as an subdomain.
+As you can se i have placed the api string as an subdomain. 
+If you can't run the api as subdomain for any reason, remove row 11 in the route file, see the link below.  
+https://github.com/rn222cx/1DV450_rn222cx/blob/master/ruby_api/config/routes.rb#L11
+
 
 To fetch a certain user you need to be authenticated with both token and email.  
 Bellow is a curl example with domain name 'ruby_api.dev' as example and the admin as email.  
