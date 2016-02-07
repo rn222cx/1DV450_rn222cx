@@ -1,6 +1,7 @@
 class StoriesController < ApplicationController
-    before_action :logged_in_user, only: [:edit, :update, :create, :destroy]
-    
+    before_action :logged_in_user, except: :index
+    before_action :correct_user,   only: :destroy
+
     def index
       @stories = Story.all
     end
@@ -39,14 +40,20 @@ class StoriesController < ApplicationController
     end
     
     def destroy
-      @story = Story.find(params[:id])
       @story.destroy
       flash[:success] = "Story successfully removed"
-      redirect_to stories_path
+      redirect_to(:back)
     end
     
     private
     def story_params
       params.require(:story).permit(:title, :description, :all_tags)
     end
+
+    private
+    def correct_user
+      @story = current_user.stories.find_by(id: params[:id])
+      redirect_to stories_path if @story.nil?
+    end
+
 end

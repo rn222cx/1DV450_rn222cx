@@ -1,6 +1,8 @@
 <h1>Edit story</h1>
 
 <%= form_for @story do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
   <div class="text_field">
     <%= f.label :title %>
     <%= f.text_field :title %>

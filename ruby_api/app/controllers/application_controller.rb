@@ -11,18 +11,12 @@ class ApplicationController < ActionController::Base
     redirect_to(root_url) unless current_user.admin?
   end
 
-  # Confirms the correct user.
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
-  end
-
   # Confirms the correct user or admin
-  def admin_or_author
+  def correct_user_or_admin
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user.admin? || current_user?(@user)
   end
-  
+
   private
     # Confirms a logged-in user.
     def logged_in_user

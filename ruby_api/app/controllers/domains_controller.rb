@@ -1,5 +1,8 @@
 class DomainsController < ApplicationController
-  before_action :admin_or_author,   only: [:show, :destroy]
+
+  before_action :logged_in_user
+  before_action :correct_user_or_admin, only: :show
+  before_action :correct_user_id_or_admin, only: :destroy
   before_action :admin_user, only: :index
 
   def index
@@ -28,8 +31,7 @@ class DomainsController < ApplicationController
   end
 
   def destroy
-    @domain = Domain.find(params[:id])
-    @domain.destroy
+    Domain.find(params[:id]).destroy
     flash[:success] = "Domain successfully removed"
     redirect_to(:back)
   end
@@ -37,6 +39,13 @@ class DomainsController < ApplicationController
   private
   def domain_params
     params.require(:domain).permit(:domain_name, :description, :authentication_token)
+  end
+
+  private
+  # Confirms the correct user from foreign key or admin
+  def correct_user_id_or_admin
+    @user = Domain.find(params[:id]).user_id
+    redirect_to(root_url) unless current_user.admin? || current_user.id == @user
   end
 
 end

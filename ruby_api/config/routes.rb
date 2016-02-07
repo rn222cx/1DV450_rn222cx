@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   
   resources :stories
   resources :users
-  resources :domains, except: :edit
+  resources :domains, except: [:edit, :update]
   
 
   root 'sessions#new'
