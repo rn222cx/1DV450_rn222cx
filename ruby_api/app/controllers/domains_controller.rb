@@ -42,7 +42,7 @@ class DomainsController < ApplicationController
   end
 
   private
-  # Confirms the correct user from foreign key or admin
+  # Confirms the correct user from domains or admin
   def correct_user_id_or_admin
     @user = Domain.find(params[:id]).user_id
     redirect_to(root_url) unless current_user.admin? || current_user.id == @user
