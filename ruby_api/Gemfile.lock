@@ -84,6 +84,8 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
+    rabl (0.11.8)
+      activesupport (>= 2.3.14)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -166,6 +168,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pundit
+  rabl
   rack-cors
   rails (= 4.2.5)
   responders

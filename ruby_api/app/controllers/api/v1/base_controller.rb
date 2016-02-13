@@ -1,7 +1,8 @@
 class Api::V1::BaseController < ApplicationController
+  include ActionController::ImplicitRender # Render RABL
   include Pundit # For authorization
 
-  respond_to :json, :xml
+
 
   protect_from_forgery with: :null_session
 
@@ -16,20 +17,21 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def authenticate_user!
+    # Parses Authorization header which holds both token and email.
     token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
 
-    # Find user by email
-    user_email = options.blank?? nil : options[:email]
-    user = user_email && User.find_by(email: user_email)
-    # Check if users api key exist
-    if user.domains.exists?(authentication_token: token)
-      # validate email and token
-      if user && ActiveSupport::SecurityUtils.secure_compare(user.domains.find_by(authentication_token: token).authentication_token, token)
-        return @current_user = user
-      end
+    # Find user by email from header
+    user = User.find_by(email: options[:email])
+    # Check if email or token exist for current user
+    return unauthenticated! if user.nil? || user.domains.find_by(authentication_token: token).nil?
+
+    # validate email and token
+    if user && ActiveSupport::SecurityUtils.secure_compare(user.domains.find_by(authentication_token: token).authentication_token, token)
+      @current_user = user
+    else
+      unauthenticated!
     end
 
-    unauthenticated!
   end
 
   def unauthenticated!

@@ -34,6 +34,8 @@ gem 'pundit'
 # allows CORS without using workarounds such as JSONP
 gem 'rack-cors', :require => 'rack/cors'
 
+gem 'rabl'
+
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

@@ -34,15 +34,15 @@ ActiveRecord::Schema.define(version: 20160131230057) do
 
   add_index "stories", ["user_id"], name: "index_stories_on_user_id"
 
-  create_table "taggings", force: :cascade do |t|
+  create_table "story_tags", force: :cascade do |t|
     t.integer  "story_id"
     t.integer  "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "taggings", ["story_id"], name: "index_taggings_on_story_id"
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "story_tags", ["story_id"], name: "index_story_tags_on_story_id"
+  add_index "story_tags", ["tag_id"], name: "index_story_tags_on_tag_id"
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"

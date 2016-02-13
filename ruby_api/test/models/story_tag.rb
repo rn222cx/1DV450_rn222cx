@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TaggingTest < ActiveSupport::TestCase
+class StoryTag < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

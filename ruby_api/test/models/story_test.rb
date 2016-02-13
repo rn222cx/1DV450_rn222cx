@@ -22,7 +22,7 @@ class StoryTest < ActiveSupport::TestCase
     assert_not @story.valid?
   end
 
-  test "content should be at most 140 characters" do
+  test "content should be at most 200 characters" do
     @story.description = "a" * 201
     assert_not @story.valid?
   end

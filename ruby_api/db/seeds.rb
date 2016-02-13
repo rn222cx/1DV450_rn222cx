@@ -23,9 +23,9 @@ user1.stories << story2
 
 # create and add a tag
 tag1 = Tag.create(:name => "roligt")
-tagging1 = Tagging.create
-story1.taggings << tagging1
-tag1.taggings << tagging1
+tagging1 = StoryTag.create
+story1.story_tags << tagging1
+tag1.story_tags << tagging1
 
 
 # create some fake users

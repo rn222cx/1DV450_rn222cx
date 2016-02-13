@@ -1,6 +1,6 @@
-class CreateTaggings < ActiveRecord::Migration
+class CreateStoryTags < ActiveRecord::Migration
   def change
-    create_table :taggings do |t|
+    create_table :story_tags do |t|
       t.belongs_to :story, index: true, foreign_key: true
       t.belongs_to :tag, index: true, foreign_key: true
 
