@@ -3,9 +3,8 @@ class Api::V1::StoriesController < Api::V1::BaseController
   before_action :offset_params
 
   def index
-    if params[:tag_id].present?
-      return @stories = Story.joins(:story_tags).where(story_tags: { tag_id: params[:tag_id] })
-                     .limit(@limit).offset(@offset)
+    if params[:tag]
+      return @stories = Tag.find_by_name(params[:tag]).stories.limit(@limit).offset(@offset)
     end
 
     @stories = Story.search(params).limit(@limit).offset(@offset)

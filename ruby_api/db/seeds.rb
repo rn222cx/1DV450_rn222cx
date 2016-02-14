@@ -42,10 +42,10 @@ end
 # create some fake stories
 users = User.order(:created_at).take(20)
 5.times do
-  lat = Faker::Number.decimal(2)
   content = Faker::Lorem.sentence(5)
   title  = Faker::Lorem.word
   lon = Faker::Number.decimal(2)
+  lat = Faker::Number.decimal(2)
   users.each { |user| user.stories.create!(title: title, description: content, longitude: lon, latitude: lat) }
 end
 

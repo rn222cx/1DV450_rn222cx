@@ -2,11 +2,11 @@ class User < ActiveRecord::Base
   has_many :stories, dependent: :destroy # remove users stories when delete, same as cascade
   has_many :domains, dependent: :destroy
 
-
+  before_save { self.username = username.downcase }
   validates :username,
             length: { maximum: 20, minimum: 2 }
 
-  before_save { self.email = email.downcase, self.username = username.downcase }
+  before_save { self.email = email.downcase }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, 

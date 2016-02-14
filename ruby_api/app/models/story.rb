@@ -2,7 +2,7 @@ class Story < ActiveRecord::Base
   belongs_to :user
 
   has_many :story_tags, dependent: :destroy
-  has_many :tags, through: :story_tags, dependent: :destroy
+  has_many :tags, through: :story_tags
 
 
   default_scope -> { order(created_at: :desc) }
@@ -23,7 +23,6 @@ class Story < ActiveRecord::Base
     arel
   end
 
-
   # Insert each tag in db separated with comma.
   def all_tags=(names)
     self.tags = names.split(",").map do |name|
@@ -35,7 +34,4 @@ class Story < ActiveRecord::Base
     self.tags.map(&:name).join(", ")
   end
 
-  def self.tagged_with(name)
-    Tag.find_by_name!(name).posts
-  end
 end
