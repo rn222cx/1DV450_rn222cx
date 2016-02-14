@@ -1,7 +1,7 @@
 class UserPolicy < ApplicationPolicy
   def show?
     return true if user.admin?
-    true if record.id == user.id
+    true if record.us == user.id
   end
 
   def create?

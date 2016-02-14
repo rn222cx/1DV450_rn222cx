@@ -19,18 +19,18 @@ class Story < ActiveRecord::Base
   # search for stories by title or description if present
   def self.search(params)
     arel = order('created_at DESC') # note: default is all, just sorted
-    arel = arel.where('title LIKE ? OR description LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
+    arel = where('title LIKE ? OR description LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
     arel
   end
 
 
-  # Render all the tags separated by commas.
+  # Insert each tag in db separated with comma.
   def all_tags=(names)
     self.tags = names.split(",").map do |name|
       Tag.where(name: name.strip).first_or_create!
     end
   end
-  # Insert each tag in db separated with comma.
+  # Render all the tags separated by commas.
   def all_tags
     self.tags.map(&:name).join(", ")
   end

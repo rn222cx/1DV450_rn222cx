@@ -7,17 +7,18 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
+  # With api as subdomain
   namespace :api, defaults: {format: :json},
             constraints: { subdomain: 'api' }, path: '/'  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :users, :stories
+      resources :users, :stories, :tags
     end
   end
 
-  # Without api as subdomain
+  # With api as first parameter
   namespace :api, defaults: {format: :json} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :users, :stories
+      resources :users, :stories, :tags
     end
   end
 

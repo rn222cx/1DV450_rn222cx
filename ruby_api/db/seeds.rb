@@ -14,7 +14,7 @@ user2 = User.create(:username => "JohnDoe", :email => "johndoe@hotmail.com", :pa
 story1 = Story.create(:title => "Mordet på Palme", :description => "Skjuten i Stockholm, mördare okänd", :longitude => 27.73, :latitude => 14.65)
 story2 = Story.create(:title => "Historian om växjö", :description => "Sloganen där vägarna möts har bytts ut mot europas grönaste stad", :longitude => 23.43, :latitude => 54.45)
 
-domain1 = Domain.create(:domain_name => "smp.se", :description => "My news site", :authentication_token => "QHaND7lr36M/lM/kaIpghaZO0PkFwla+NU37oB4DMg0Ph7qvtjmA0xGZ+jAM4ENSXC1A/1iQMqs4Z8DTcc9Kbw==")
+domain1 = Domain.create(:domain_name => "smp.se", :description => "My news site", :authentication_token => "RandomString")
 
 user1.domains << domain1
 
@@ -29,8 +29,8 @@ tag1.story_tags << tagging1
 
 
 # create some fake users
-5.times do |n|
-  username  = Faker::Name.name
+50.times do |n|
+  username  = Faker::Name.first_name
   email = "example-#{n+1}@rails.org"
   password = "password"
   User.create!(username: username,
@@ -40,9 +40,21 @@ tag1.story_tags << tagging1
 end
 
 # create some fake stories
-# users = User.order(:created_at).take(6)
-# 50.times do
-#   content = Faker::Lorem.sentence(5)
-#   title  = Faker::Name.name
-#   users.each { |user| user.stories.create!(title: title, description: content) }
-# end
+users = User.order(:created_at).take(20)
+5.times do
+  lat = Faker::Number.decimal(2)
+  content = Faker::Lorem.sentence(5)
+  title  = Faker::Lorem.word
+  lon = Faker::Number.decimal(2)
+  users.each { |user| user.stories.create!(title: title, description: content, longitude: lon, latitude: lat) }
+end
+
+
+# create some fake tags
+15.times do |n|
+  tag = Tag.create(:name => "Tag-#{n+1}")
+  tagging = StoryTag.create
+  story = Story.find(n+1)
+  story.story_tags << tagging
+  tag.story_tags << tagging
+end

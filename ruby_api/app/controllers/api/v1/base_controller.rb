@@ -2,10 +2,7 @@ class Api::V1::BaseController < ApplicationController
   include ActionController::ImplicitRender # Render RABL
   include Pundit # For authorization
 
-
-
   protect_from_forgery with: :null_session
-
   before_action :destroy_session, :default_format_json
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
@@ -53,4 +50,6 @@ class Api::V1::BaseController < ApplicationController
       request.format = "json"
     end
   end
+
+
 end

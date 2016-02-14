@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::V1::BaseController
 
   #respond_to :json, :xml
-  #before_filter :authenticate_user!, only: [:show]
+  before_filter :authenticate_user!, only: [:show]
 
   def index
     @users = User.all
@@ -14,11 +14,16 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
 
+
   def show
-    @user = User.find_by(params[:username])
-    #authorize user # check policies/user_policy.rb for auth rules
+    @user = User.find_by_username(params[:id].downcase)
+    authorize @user # check policies/user_policy.rb for auth rules
 
+  end
 
+  # Use username instead of id in params
+  def to_param
+    username
   end
 
 

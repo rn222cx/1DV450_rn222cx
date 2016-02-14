@@ -1,15 +1,13 @@
 collection @stories
-attributes :id, :title, :description, :longitude, :latitude, :created_at
 
-#unless locals[:hide_username]
-
-node(:edit_url) { |stories| edit_story_url(stories) }
-
-child(:user) { attributes :username, :admin }
+extends "api/v1/stories/show"
+#extends('api/v1/stories/index', :locals => { :hide_username => true })
 
 
-child :tags do
-  attribute :created_at, :name
+if @stories.count == @limit
+  node(:next_page){ stories_url(limit: @limit, offset: @limit + @offset) }
 end
 
-
+if @offset > 0
+  node(:previous_page){ stories_url(limit: @limit, offset: @offset - @limit) }
+end
