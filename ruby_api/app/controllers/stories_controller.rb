@@ -47,7 +47,7 @@ class StoriesController < ApplicationController
     
     private
     def story_params
-      params.require(:story).permit(:title, :description, :all_tags)
+      params.require(:story).permit(:title, :description, :all_tags, :address, :longitude, :latitude)
     end
 
     private

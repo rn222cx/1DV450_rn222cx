@@ -4,7 +4,7 @@ extends "api/v1/stories/show"
 #extends('api/v1/stories/index', :locals => { :hide_username => true })
 
 
-if @stories.count == @limit
+if @stories.count(:all) == @limit
   node(:next_page){ stories_url(limit: @limit, offset: @limit + @offset) }
 end
 

@@ -16,11 +16,15 @@ class Story < ActiveRecord::Base
             :presence => {:message => "You have to give a description"},
              length: { maximum: 200 }
 
+  # fetch coordinates from address if it is present.
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
+
   # search for stories by title or description if present
   def self.search(params)
-    arel = order('created_at DESC') # note: default is all, just sorted
-    arel = where('title LIKE ? OR description LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
-    arel
+    story = order('created_at DESC') # note: default is all, just sorted
+    story = where('title LIKE ? OR description LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
+    story
   end
 
   # Insert each tag in db separated with comma.

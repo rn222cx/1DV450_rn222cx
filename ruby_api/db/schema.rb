@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160131230057) do
   create_table "stories", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title",       limit: 50
+    t.string   "address"
     t.text     "description"
     t.float    "longitude"
     t.float    "latitude"

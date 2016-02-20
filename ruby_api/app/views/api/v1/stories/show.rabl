@@ -1,6 +1,6 @@
 collection @story
 
-attributes :id, :title, :description, :longitude, :latitude, :created_at
+attributes :user_id, :title, :description, :longitude, :latitude, :created_at, :latitude, :longitude, :address
 
 #unless locals[:hide_username]
 
