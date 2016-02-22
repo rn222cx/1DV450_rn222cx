@@ -16,7 +16,7 @@ class StoryTest < ActiveSupport::TestCase
     @story.user_id = nil
     assert_not @story.valid?
   end
-  
+
   test "description should be present" do
     @story.description = "   "
     assert_not @story.valid?

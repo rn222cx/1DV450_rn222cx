@@ -9,7 +9,7 @@ class UserTest < ActiveSupport::TestCase
   test "should be valid" do
     assert @user.valid?
   end
-  
+
   test "associated stories should be destroyed" do
     @user.save
     @user.stories.create!(title: "Lorem ipsum", description: "Hello")

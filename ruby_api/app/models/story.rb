@@ -25,9 +25,9 @@ class Story < ActiveRecord::Base
     story
   end
 
-  ####################################################################
+  ###################################################
   ## Code bellow is not for the API, view specific ##
-  ####################################################################
+  ###################################################
 
   # Insert each tag in db separated with comma.
   def all_tags=(names)
