@@ -8,8 +8,20 @@
 You should see a login page when navigate to the site.
 
 #### Admin credentials
-admin: admin@admin.com  
+username: admin
+email: admin@admin.com  
 password: 1234
+
+### Non admin user  
+username: johndoe
+email: test@test.com  
+password: 1234  
+For crud management the users email and password must be sent encoded in the header to make requests.  
+Don't worry it is included in the postman collection for johndoe.    
+You can create your own encoding in the terminal like this `Base64.encode64("test@test.com:1234")`    
+
+
+
 
 ### Api
 
