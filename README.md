@@ -8,7 +8,7 @@
 You should see a login page when navigate to the site.
 
 #### Admin credentials
-username: admin
+username: admin  
 email: admin@admin.com  
 password: 1234
 
@@ -17,29 +17,17 @@ username: johndoe
 email: test@test.com  
 password: 1234  
 For crud management the users email and password must be sent encoded in the header to make requests.  
-Don't worry it is included in the postman collection for johndoe.    
+Don't worry it's included in the postman collection for johndoe.    
 You can create your own encoding in the terminal like this `Base64.encode64("test@test.com:1234")`    
-
-
-
 
 ### Api
 
-To fetch all users navigate to api.DOMAINNAME/users in url.  
-As you can se i have placed the api string as an subdomain. 
-If you can't run the api as subdomain for any reason, remove row 11 in the route file, see the link below.  
-https://github.com/rn222cx/1DV450_rn222cx/blob/master/ruby_api/config/routes.rb#L11
+#### Known issue
+I personaly use the api as an subdomain but I guess most people use localhost:3000 so I created the postman collection for localhost:3000. The problem I encountered when I did the postman collection is that the hateoas url does not include api as a parameter in the url. I know why it happens but I will not spend time on it for a peer-review.
 
+To create requests you have to generate your own Api-Key or login as admin and copy the existing one.
 
-To fetch a certain user you need to be authenticated with both token and email.  
-Bellow is a curl example with domain name 'ruby_api.dev' as example and the admin as email.  
-copy and paste it in the terminal or import it in postman as Raw Text, you have to change to a valid token first.
-
-
-`curl http://api.ruby_api.dev/users/1 -H 'Authorization: Token   token="a65FXfBVP788uC/LrTl8u7kgoevpWUHvNG8B84KTnYyotwEahHYYJPGedAUujR6zfpZyFQ37YfzMs+o9qViGCQ==", email="admin@admin.com"'`
-
-Admin can fetch all users data and regular users can only check their own.
-
+The api works for booth json and xml.
 
 
 Enjoy!
