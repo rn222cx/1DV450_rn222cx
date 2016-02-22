@@ -27,6 +27,10 @@ class Story < ActiveRecord::Base
     story
   end
 
+  ####################################################################
+  ## Code bellow is not for the API, not necessary for peer-review. ##
+  ####################################################################
+
   # Insert each tag in db separated with comma.
   def all_tags=(names)
     self.tags = names.split(",").map do |name|

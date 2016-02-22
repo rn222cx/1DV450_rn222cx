@@ -29,13 +29,14 @@ gem 'responders'
 # navigation gem
 gem 'geocoder'
 
-gem 'active_model_serializers', '0.9.2'
+##gem 'active_model_serializers', '0.9.2'
 # minimal authorization gem
 gem 'pundit'
 # allows CORS without using workarounds such as JSONP
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'rabl'
+
 
 
 group :development do

@@ -1,46 +1,40 @@
 class Api::V1::BaseController < ApplicationController
-  include ActionController::ImplicitRender # Render RABL
   include Pundit # For authorization
-
   respond_to :xml, :json
 
   protect_from_forgery with: :null_session
-  before_action :destroy_session#, :default_format_json
+  before_action :destroy_session, :authenticate_developer
 
-  # rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  # rescue_from Pundit::NotAuthorizedError, with: :unauthorized!
-  # rescue_from ActionController::ParameterMissing, with: :not_found
-  # rescue_from NoMethodError, with: :not_found
-
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized!
+  rescue_from ActionController::ParameterMissing, with: :not_found
+  rescue_from NoMethodError, with: :not_found
 
 
   def destroy_session
     request.session_options[:skip] = true
   end
 
-  def authenticate_user!
-    # Parses Authorization header which holds both token and email.
-    token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
-
-    return unauthorized! if token.nil? || options.nil?
-
-    # Find user by email from header
-    user = User.find_by(email: options[:email])
-    # Check if email or token exist for current user
-    # return unauthenticated! if user.nil? || user.domains.find_by(authentication_token: token).nil?
-
-    # validate email and token
-    if user && ActiveSupport::SecurityUtils.secure_compare(user.domains.find_by(authentication_token: token).authentication_token, token)
-      @current_user = user
-    else
-      unauthenticated!
+  def authenticate_developer
+    authenticate_or_request_with_http_token do |token, options|
+      Domain.exists?(authentication_token: token)
     end
-
   end
 
-  def unauthenticated!
-    response.headers['WWW-Authenticate'] = "Token realm=Application"
-    render json: { error: '401, bad credentials' }, status: 401
+  # authenticate user by users authentication token
+  def authenticate_user!
+    if request.headers['User-Token'].present?
+      token = request.headers['User-Token']
+      user = User.find_by(authentication_token: token)
+      if user.nil?
+        response_with('The token does not match', 401)
+      else
+        @current_user = user
+      end
+
+    else
+      response_with('You have to be authorized', 403)
+    end
   end
 
   def not_found
@@ -50,16 +44,31 @@ class Api::V1::BaseController < ApplicationController
     end
   end
 
-  def unauthorized!
-    render json: { error: '403, not authorized' }, status: 403
+  def response_with (message = 'Bad request', code = 200)
+    respond_to do |format|
+      format.json { render json: { message: message }, status: code }
+      format.xml { render xml: { message: message }, status: code }
+    end
   end
 
-  # def default_format_json
-  #   if (request.headers["HTTP_ACCEPT"].nil? && params[:format].nil?) ||
-  #       (request.headers["HTTP_ACCEPT"] != "application/xml" && params[:format] != "xml")
-  #     request.format = "json"
-  #   end
-  # end
+  # check if offset/limit is present else set default values
+  def offset_params
+    offset = 0
+    limit = 20
+    if query_params[:offset].present?
+      @offset = query_params[:offset].to_i
+    end
+    if query_params[:limit].present?
+      @limit = query_params[:limit].to_i
+    end
+    @offset ||= offset
+    @limit ||= limit
+  end
 
+  private
+
+  def query_params
+    params.permit(:offset, :limit)
+  end
 
 end

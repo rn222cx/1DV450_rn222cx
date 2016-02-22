@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131230057) do
+ActiveRecord::Schema.define(version: 20160221191145) do
 
   create_table "domains", force: :cascade do |t|
     t.integer  "user_id"
@@ -54,12 +54,13 @@ ActiveRecord::Schema.define(version: 20160131230057) do
   add_index "tags", ["name"], name: "index_tags_on_name"
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        limit: 20
-    t.string   "email",           limit: 50
+    t.string   "username",             limit: 20
+    t.string   "email",                limit: 50
     t.string   "password_digest"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.boolean  "admin",                      default: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.boolean  "admin",                           default: false
+    t.string   "authentication_token"
   end
 
 end
