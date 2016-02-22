@@ -1,4 +1,5 @@
 collection @users
-attributes :id, :username
 
-node(:edit_url) { |users| edit_user_url(users) }
+extends "api/v1/users/show"
+
+node(:user_url) { |users| user_url(users.username) }

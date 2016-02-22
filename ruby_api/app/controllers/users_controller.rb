@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
-
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -50,12 +49,12 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation, :current_password)
   end
 
   # Confirms the correct user.
-  private
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)

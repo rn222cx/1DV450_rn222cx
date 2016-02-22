@@ -1,9 +1,7 @@
 class Story < ActiveRecord::Base
   belongs_to :user
-
   has_many :story_tags, dependent: :destroy
   has_many :tags, through: :story_tags
-
 
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
@@ -28,7 +26,7 @@ class Story < ActiveRecord::Base
   end
 
   ####################################################################
-  ## Code bellow is not for the API, not necessary for peer-review. ##
+  ## Code bellow is not for the API, view specific ##
   ####################################################################
 
   # Insert each tag in db separated with comma.

@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :stories, dependent: :destroy # remove users stories when delete, same as cascade
+  has_many :stories, dependent: :destroy
   has_many :domains, dependent: :destroy
-
-  before_create :generate_authentication_token
 
   before_save { self.username = username.downcase }
   validates :username,
@@ -32,14 +30,6 @@ class User < ActiveRecord::Base
     else
       self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
       false
-    end
-  end
-
-  # generate a token
-  def generate_authentication_token
-    loop do
-      self.authentication_token = SecureRandom.base64(64)
-      break unless User.find_by(authentication_token: authentication_token)
     end
   end
 

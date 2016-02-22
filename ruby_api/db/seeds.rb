@@ -9,17 +9,22 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 user1 = User.create(:username => "Admin", :email => "admin@admin.com", :password => "1234", admin: true )
-user2 = User.create(:username => "JohnDoe", :email => "johndoe@hotmail.com", :password => "password" )
+user2 = User.create(:username => "JohnDoe", :email => "test@test.com", :password => "1234" )
 
 story1 = Story.create(:title => "Mordet på Palme", :description => "Skjuten i Stockholm, mördare okänd", :longitude => 27.73, :latitude => 14.65)
 story2 = Story.create(:title => "Historian om växjö", :description => "Sloganen där vägarna möts har bytts ut mot europas grönaste stad", :longitude => 23.43, :latitude => 54.45)
+story3 = Story.create(:title => "Historian om Kalmar", :description => "Kalmar slott är gammalt", :longitude => 16.356770, :latitude => 56.6634440)
+story4 = Story.create(:title => "Lorem ipsum", :description => "Lorem lorem", :longitude => 16.356719, :latitude => 56.6634417)
 
-domain1 = Domain.create(:domain_name => "smp.se", :description => "My news site", :authentication_token => "RandomString")
+domain1 = Domain.create(:domain_name => "lnu.se", :description => "My school", :authentication_token => "RandomString")
 
 user1.domains << domain1
 
 user1.stories << story1
 user1.stories << story2
+
+user2.stories << story3
+user2.stories << story4
 
 # create and add a tag
 tag1 = Tag.create(:name => "roligt")

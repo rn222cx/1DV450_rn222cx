@@ -1,5 +1,4 @@
 class StoryPolicy < ApplicationPolicy
-
   def create?
     true if user.admin?
     true if record.user_id == user.id

@@ -1,3 +1,3 @@
 collection @tags
-attributes :id, :name
+attributes :name
 

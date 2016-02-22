@@ -1,3 +1,4 @@
 collection @user
 
-extends "api/v1/users/index"
+attributes :username, :email, :created_at
+

@@ -46,11 +46,11 @@ class StoriesController < ApplicationController
     end
     
     private
+
     def story_params
       params.require(:story).permit(:title, :description, :all_tags, :address, :longitude, :latitude)
     end
 
-    private
     def correct_user
       @story = current_user.stories.find_by(id: params[:id])
       redirect_to stories_path if @story.nil?

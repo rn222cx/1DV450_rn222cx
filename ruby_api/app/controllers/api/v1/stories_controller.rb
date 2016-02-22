@@ -1,6 +1,5 @@
 class Api::V1::StoriesController < Api::V1::BaseController
 
-  before_action :offset_params
   before_action :authenticate_user!, only: [:create, :destroy, :update]
 
   def index
@@ -62,7 +61,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
     if story.destroy
       response_with('Story successfully removed', 200)
     else
-      response_with('Could not remove story', 400)
+      response_with('Could not find story', 404)
     end
   end
 

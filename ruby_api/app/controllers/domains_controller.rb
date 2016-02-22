@@ -1,5 +1,4 @@
 class DomainsController < ApplicationController
-
   before_action :logged_in_user
   before_action :correct_user_or_admin, only: :show
   before_action :correct_user_id_or_admin, only: :destroy
@@ -37,11 +36,11 @@ class DomainsController < ApplicationController
   end
 
   private
+
   def domain_params
     params.require(:domain).permit(:domain_name, :description, :authentication_token)
   end
 
-  private
   # Confirms the correct user from domains or admin
   def correct_user_id_or_admin
     @user = Domain.find(params[:id]).user_id

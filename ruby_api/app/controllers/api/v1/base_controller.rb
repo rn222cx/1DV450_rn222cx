@@ -1,39 +1,46 @@
 class Api::V1::BaseController < ApplicationController
-  include Pundit # For authorization
+  include Pundit # For authorization rules
   respond_to :xml, :json
 
   protect_from_forgery with: :null_session
-  before_action :destroy_session, :authenticate_developer
+  before_action :destroy_session, :authenticate_developer, :offset_params
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from Pundit::NotAuthorizedError, with: :unauthorized!
   rescue_from ActionController::ParameterMissing, with: :not_found
   rescue_from NoMethodError, with: :not_found
 
-
+  # Disable cookies (no set-cookies header in response)
   def destroy_session
     request.session_options[:skip] = true
   end
 
   def authenticate_developer
-    authenticate_or_request_with_http_token do |token, options|
-      Domain.exists?(authentication_token: token)
+      if request.headers['Api-Key'].present?
+        key = request.headers['Api-Key']
+
+        api_key = Domain.exists?(authentication_token: key)
+        response_with('Bad credentials', 401) if api_key.nil?
+      else
+        response_with('Not authorized', 403)
+      end
+  end
+
+  def authenticate_user!
+    authenticate_with_http_basic do |email, password|
+      user = User.find_by(email: email).try(:authenticate, password)
+      if user
+        @current_user = user
+      else
+        response_with('Bad credentials', 401)
+      end
     end
   end
 
-  # authenticate user by users authentication token
-  def authenticate_user!
-    if request.headers['User-Token'].present?
-      token = request.headers['User-Token']
-      user = User.find_by(authentication_token: token)
-      if user.nil?
-        response_with('The token does not match', 401)
-      else
-        @current_user = user
-      end
-
-    else
-      response_with('You have to be authorized', 403)
+  def unauthorized!
+    respond_to do |format|
+      format.json { render json: { error: 'Forbidden, access denied' }, status: 403 }
+      format.xml { render xml: { error: 'Forbidden, access denied' }, status: 403 }
     end
   end
 
