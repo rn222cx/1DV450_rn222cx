@@ -19,14 +19,11 @@ class Api::V1::StoriesController < Api::V1::BaseController
   def create
     authorize current_user # check policies/user_policy.rb for auth rules
 
-    story = Story.new(story_params.except(:tags))
-    story.user_id = current_user.id
+    story = current_user.stories.new(story_params.except(:tags))
 
     # if tags are present
-    if story_params[:tags].present?
-      tags_params = story_params[:tags]
-
-      tags_params.each do |tag|
+    if story_params[:tags]
+        story_params[:tags].each do |tag|
         # If tag exists then use existing tag name
         if Tag.exists?(tag)
           story.tags << Tag.find_by_name(tag["name"])
@@ -43,15 +40,27 @@ class Api::V1::StoriesController < Api::V1::BaseController
     end
   end
 
+  # update story and add new tags if present
   def update
-    story = Story.find(params[:id])
-    authorize story # check policies/story_policy.rb for auth rules
+     story = Story.find(params[:id])
+     authorize story # check policies/story_policy.rb for auth rules
 
-    if story.update(story_params)
-      response_with('Story successfully updated', 200)
-    else
-      response_with('Sorry could not update story', 400)
-    end
+      if story_params[:tags]
+        story_params[:tags].each do |tag|
+          # If tag exists then use existing tag name
+          if Tag.exists?(tag)
+            story.tags << Tag.find_by_name(tag["name"])
+          else
+            story.tags << Tag.new(tag)
+          end
+        end
+      end
+
+      if story.update(story_params.except(:tags)) && story.save
+        response_with('Story successfully saved', 200)
+      else
+        response_with('Could not update story', 400)
+      end
   end
 
   def destroy
@@ -69,6 +78,10 @@ class Api::V1::StoriesController < Api::V1::BaseController
 
   def story_params
     params.require(:story).permit(:title, :description, :address, :longitude, :latitude, tags: [ :name ])
+  end
+
+  def clean_up_tags
+
   end
 
 end
