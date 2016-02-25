@@ -80,8 +80,4 @@ class Api::V1::StoriesController < Api::V1::BaseController
     params.require(:story).permit(:title, :description, :address, :longitude, :latitude, tags: [ :name ])
   end
 
-  def clean_up_tags
-
-  end
-
 end

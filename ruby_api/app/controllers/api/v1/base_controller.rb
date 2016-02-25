@@ -20,7 +20,7 @@ class Api::V1::BaseController < ApplicationController
         key = request.headers['Api-Key']
 
         api_key = Domain.exists?(authentication_token: key)
-        response_with('Bad credentials', 401) if api_key.nil?
+        response_with('Bad credentials', 401) unless api_key
       else
         response_with('Not authorized', 403)
       end
