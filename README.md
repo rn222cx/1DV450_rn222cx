@@ -22,7 +22,7 @@ You can create your own encoding in the terminal like this `Base64.encode64("tes
 
 ### Api
 
-Postman collection https://www.getpostman.com/collections/22425e76595e80a3d7d6
+Postman collection https://www.getpostman.com/collections/0893639f23f89b9ca0fe
 
 #### Known issue
 I personaly use the api as an subdomain but I guess most people use localhost:3000 so I created the postman collection for localhost:3000. The problem I encountered when I did the postman collection is that the hateoas url does not include api as a parameter in the url. I know why it happens but I will not spend time on it for a peer-review.
