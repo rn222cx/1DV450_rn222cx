@@ -20,6 +20,9 @@ For CrUD management the users email and password must be sent encoded in the hea
 Don't worry it's included in the postman collection for johndoe.    
 You can create your own encoding in the terminal like this `Base64.encode64("test@test.com:1234")`    
 
+### Tests
+The tests are old and will not work anymore
+
 ### Api
 
 Postman collection https://www.getpostman.com/collections/0893639f23f89b9ca0fe
