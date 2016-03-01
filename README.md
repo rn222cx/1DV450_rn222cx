@@ -2,7 +2,7 @@
 
 ### Install
 * bundle install
-* rake db:migrate
+* rake db:schema:load  
 * rake db:seed
 
 You should see a login page when navigate to the site.
