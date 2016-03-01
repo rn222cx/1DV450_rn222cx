@@ -32,7 +32,8 @@ gem 'pundit'
 gem 'rack-cors', :require => 'rack/cors'
 # api template builder
 gem 'rabl'
-
+# if you are using windows you maybe need this gem
+# gem 'tzinfo-data'
 
 
 group :development do
