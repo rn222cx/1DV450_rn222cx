@@ -1,6 +1,6 @@
 class Api::V1::StoriesController < Api::V1::BaseController
 
-  before_action :authenticate_user!, only: [:create, :destroy, :update]
+  before_action :authenticate_creator!, only: [:create, :destroy, :update]
 
   def index
     if params[:tag] # Find by tags
@@ -17,9 +17,13 @@ class Api::V1::StoriesController < Api::V1::BaseController
   end
 
   def create
+    #abort current_user.inspect
     authorize current_user # check policies/user_policy.rb for auth rules
 
     story = current_user.stories.new(story_params.except(:tags))
+
+    # add the id from developers api key to know which domain the story belongs to
+    story.user_id = @developer.id
 
     # if tags are present
     if story_params[:tags]

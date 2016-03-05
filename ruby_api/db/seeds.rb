@@ -11,6 +11,10 @@
 user1 = User.create(:username => "Admin", :email => "admin@admin.com", :password => "1234", admin: true )
 user2 = User.create(:username => "JohnDoe", :email => "test@test.com", :password => "1234" )
 
+creator0 = Creator.create(:username => "admin", :email => "admin@creator.com", :password => "1234", admin: true )
+creator1 = Creator.create(:username => "john", :email => "john@test.com", :password => "1234" )
+creator2 = Creator.create(:username => "johan", :email => "johan@test.com", :password => "1234" )
+
 story1 = Story.create(:title => "Mordet på Palme", :description => "Skjuten i Stockholm, mördare okänd", :longitude => 27.73, :latitude => 14.65)
 story2 = Story.create(:title => "Historian om växjö", :description => "Sloganen där vägarna möts har bytts ut mot europas grönaste stad", :longitude => 23.43, :latitude => 54.45)
 story3 = Story.create(:title => "Historian om Kalmar", :description => "Kalmar slott är gammalt", :longitude => 16.356770, :latitude => 56.6634440)
@@ -34,7 +38,7 @@ tag1.story_tags << tagging1
 
 
 # create some fake users
-50.times do |n|
+10.times do |n|
   username  = Faker::Name.first_name
   email = "example-#{n+1}@rails.org"
   password = "password"
@@ -56,7 +60,7 @@ end
 
 
 # create some fake tags
-15.times do |n|
+10.times do |n|
   tag = Tag.create(:name => "Tag-#{n+1}")
   tagging = StoryTag.create
   story = Story.find(n+1)

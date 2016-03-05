@@ -1,5 +1,6 @@
 class Story < ActiveRecord::Base
   belongs_to :user
+  belongs_to :creator
   has_many :story_tags, dependent: :destroy
   has_many :tags, through: :story_tags
 

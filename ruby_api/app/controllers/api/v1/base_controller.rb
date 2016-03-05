@@ -15,28 +15,6 @@ class Api::V1::BaseController < ApplicationController
     request.session_options[:skip] = true
   end
 
-  def authenticate_developer
-      if request.headers['Api-Key'].present?
-        key = request.headers['Api-Key']
-
-        api_key = Domain.exists?(authentication_token: key)
-        response_with('Bad credentials', 401) unless api_key
-      else
-        response_with('Not authorized', 403)
-      end
-  end
-
-  def authenticate_user!
-    authenticate_with_http_basic do |email, password|
-      user = User.find_by(email: email).try(:authenticate, password)
-      if user
-        @current_user = user
-      else
-        response_with('Bad credentials', 401)
-      end
-    end
-  end
-
   def unauthorized!
     respond_to do |format|
       format.json { render json: { error: 'Forbidden, access denied' }, status: 403 }
@@ -76,6 +54,39 @@ class Api::V1::BaseController < ApplicationController
 
   def query_params
     params.permit(:offset, :limit)
+  end
+
+  def authenticate_developer
+    if request.headers['Api-Key'].present?
+      key = request.headers['Api-Key']
+
+      api_key = Domain.exists?(authentication_token: key)
+      response_with('Bad credentials', 401) unless api_key
+
+      @developer = Domain.find_by(authentication_token: key)
+
+    else
+      response_with('Not authorized', 403)
+    end
+  end
+
+  def token
+    authenticate_with_http_basic do |email, password|
+      user = Creator.find_by(email: email).try(:authenticate, password)
+      if user
+        respond_with(auth_token: user.auth_token)
+      else
+        response_with('Bad credentials', 401)
+      end
+    end
+  end
+
+  def authenticate_creator!
+    authenticate_with_http_token do |token|
+      user = Creator.find_by(auth_token: token)
+      response_with('Bade credentials', 401) if user.nil?
+      @current_user = user
+    end
   end
 
 end

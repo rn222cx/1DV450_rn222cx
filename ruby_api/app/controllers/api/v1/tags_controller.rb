@@ -1,6 +1,6 @@
 class Api::V1::TagsController < Api::V1::BaseController
 
-  before_action :authenticate_user!, only: [:create, :destroy, :update]
+  before_action :authenticate_creator!, only: [:create, :destroy, :update]
 
   def index
     @tags = Tag.all.limit(@limit).offset(@offset)
