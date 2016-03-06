@@ -12,7 +12,7 @@ Rails.application.routes.draw do
             constraints: { subdomain: 'api' }, path: '/'  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :users, :stories, :tags
-      get :token, controller: 'base'
+      post :token, controller: 'base'
     end
   end
 
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :users, :stories, :tags
-      get :token, controller: 'base'
+      post :token, controller: 'base'
     end
   end
 
