@@ -34,7 +34,7 @@ class Api::V1::BaseController < ApplicationController
       user = Creator.find_by(email: email).try(:authenticate, password)
       if user
         respond_to do |format|
-          format.json { render json: { token: user.auth_token }, status: 200 }
+          format.json { render json: { token: user.auth_token, username: user.username }, status: 200 }
           format.xml { render xml: { token: user.auth_token }, status: 200 }
         end
       else

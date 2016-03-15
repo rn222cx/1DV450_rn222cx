@@ -3,13 +3,14 @@ class Api::V1::StoriesController < Api::V1::BaseController
   before_action :authenticate_creator!, only: [:create, :destroy, :update]
 
   def index
-    if params[:tag] # Find by tags
+    if params[:tag].present? # Find by tags
       @stories = Tag.find_by_name(params[:tag]).stories.limit(@limit).offset(@offset)
-    elsif params[:location] # Find by location
+    elsif params[:location].present? # Find by location
       @stories = Story.near(params[:location], params[:range] ||= 50).limit(@limit).offset(@offset)
     else # Find by search string by title and description. If search is empty it renders all
       @stories = Story.search(params).limit(@limit).offset(@offset)
     end
+
   end
 
   def show
