@@ -27,9 +27,6 @@ The tests are old and will not work anymore
 
 Postman collection https://www.getpostman.com/collections/0893639f23f89b9ca0fe
 
-#### Known issue
-I personaly use the api as an subdomain but I guess most people use localhost:3000 so I created the postman collection for localhost:3000. The problem I encountered when I did the postman collection is that the hateoas url does not include api as a parameter in the url. I know why it happens but I will not spend time on it because the app should use api as subdomain in production.
-
 To create requests you have to generate your own Api-Key or login as admin and copy the existing one.
 
 The index and show methods are generated with RABL and are located in the views directory.
