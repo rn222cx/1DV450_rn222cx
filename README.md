@@ -16,6 +16,7 @@ password: 1234
 username: johndoe  
 email: test@test.com  
 password: 1234  
+
 For CrUD management the users email and password must be sent encoded in the header to make requests.  
 Don't worry it's included in the postman collection for johndoe.    
 You can create your own encoding in the terminal like this `Base64.encode64("test@test.com:1234")`    
