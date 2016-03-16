@@ -1,6 +1,6 @@
 # 1DV450_rn222cx
 
-Url to aplication: https://ancient-savannah-60021.herokuapp.com/
+Url to application: https://ancient-savannah-60021.herokuapp.com/
 
 ### Install
 * bundle install
