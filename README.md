@@ -1,6 +1,6 @@
 # 1DV450_rn222cx
 
-Url to application: https://ancient-savannah-60021.herokuapp.com/
+Url to application: https://ancient-savannah-60021.herokuapp.com/  
 Url to client repo: https://github.com/rn222cx/1DV450_rn222cx_client
 
 ### Install
